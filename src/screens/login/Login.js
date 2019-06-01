@@ -13,6 +13,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 // import Modal from 'react-modal'
 // import { logicalExpression } from '@babel/types';
 class Login extends Component {
+   
     constructor() {
         super();
         this.state = {
@@ -29,7 +30,11 @@ class Login extends Component {
         };
         this.routeChange = this.routeChange.bind(this);
     }
-
+    
+    routeChange = () =>{
+        let path = '/home';
+        this.props.history.push(path);
+      }
     loginClickHandler = () => {
         this.state.usernameform === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.usernameform === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
@@ -41,7 +46,7 @@ class Login extends Component {
             else{
                 this.setState({access_token: "14194575284.bc5d6f1.819efd1605744bc4a9b905ce19d70c78"});
                 sessionStorage.setItem('access_token', "14194575284.bc5d6f1.819efd1605744bc4a9b905ce19d70c78");
-                this.props.history.push('/home');
+                // this.props.history.push('/home');
                 this.routeChange();
             }
         }
@@ -57,10 +62,7 @@ class Login extends Component {
         this.setState({ passwordform: event.target.value });
     }
 
-    routeChange() {
-        let path = `/home`;
-        this.props.history.push(path);
-      }
+    
     render() {
         return (
             <div className="loginPage">
