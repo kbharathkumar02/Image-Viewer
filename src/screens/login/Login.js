@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
-import Header from '../../common/Header';
+import LoginHeader from '../../common/LoginHeader';
 import Button from '@material-ui/core/Button';
 import 'typeface-roboto';
 import Card from '@material-ui/core/Card';
@@ -27,7 +27,7 @@ class Login extends Component {
             invalidCredentialsCombination: "dispNone",
             username: "upgrad",
             password: "password",
-            // access_token :'',
+            access_token :'',
             
         };
         this.routeChange = this.routeChange.bind(this);
@@ -47,7 +47,7 @@ class Login extends Component {
             }
             else{
                 this.setState({access_token: "14194575284.bc5d6f1.819efd1605744bc4a9b905ce19d70c78"});
-                sessionStorage.setItem('access_token', "14194575284.bc5d6f1.819efd1605744bc4a9b905ce19d70c78");
+                sessionStorage.setItem('access_token', this.state.access_token);
                 // this.props.history.push('/home');
                 this.routeChange();
             }
@@ -69,7 +69,7 @@ class Login extends Component {
         return (
             <div className="loginPage">
                 <div>
-                    <Header />
+                    <LoginHeader />
                 </div>
                 <div className="loginForm">
                     <Card className="loginCard">
