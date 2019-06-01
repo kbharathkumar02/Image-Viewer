@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
+import Header from '../../common/Header';
 import Button from '@material-ui/core/Button';
 import 'typeface-roboto';
 import Card from '@material-ui/core/Card';
@@ -9,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
+// import { common } from '@material-ui/core/colors';
 // import PropTypes from  'prop-types';
 // import Modal from 'react-modal'
 // import { logicalExpression } from '@babel/types';
@@ -66,8 +68,8 @@ class Login extends Component {
     render() {
         return (
             <div className="loginPage">
-                <div className="loginHeader">
-                    <span className="loginSpan">Image Viewer</span>
+                <div>
+                    <Header />
                 </div>
                 <div className="loginForm">
                     <Card className="loginCard">

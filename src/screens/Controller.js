@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class Controller extends Component {
 
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
+  
   render() {
     return (
       <Router>
