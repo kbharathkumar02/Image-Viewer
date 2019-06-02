@@ -1,113 +1,181 @@
 import React, { Component } from 'react';
 import './Login.css';
-import Button from '@material-ui/core/Button';
-import 'typeface-roboto';
+import { withStyles } from '@material-ui/core/styles';
+import Header from '../../common/header/Header';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import Typography from '@material-ui/core/Typography';
-import FormHelperText from '@material-ui/core/FormHelperText';
-// import { common } from '@material-ui/core/colors';
-// import PropTypes from  'prop-types';
-// import Modal from 'react-modal'
-// import { logicalExpression } from '@babel/types';
+import indigo from '@material-ui/core/colors/indigo';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+    card: {
+        maxWidth: '25%',
+        margin: 'auto',
+        marginTop: 15,
+        padding: 40,
+    },
+    loginForm: {
+        width: '100%',
+        marginTop: 20,
+    },
+    inputLabel: {
+        '&$inputFocused': {
+            color: indigo[500],
+        },
+    },
+    inputFocused: {},
+    inputUnderline: {
+        '&:after': {
+            borderBottomColor: indigo[500],
+        },
+    },
+});
+
 class Login extends Component {
-   
+
     constructor() {
         super();
         this.state = {
-            // modalIsOpen:false
-            usernameform: "",
-            usernameRequired: "dispNone",
-            passwordform: "",
-            passwordRequired: "dispNone",
-            invalidCredentialsCombination: "dispNone",
-            username: "upgrad",
-            password: "password",
-            accesToken :'',
-            
-        };
-        this.routeChangeToHome = this.routeChangeToHome.bind(this);
+            loginUsername: '',
+            usernameRequired: false,
+            loginPassword: '',
+            passwordRequired: false,
+            incorrectCredentials: false,
+        }
     }
-    
-    routeChangeToHome = () =>{
-        let path = '/home';
-        this.props.history.push(path);
-      }
+
+    inputUsernameChangeHandler = (event) => {
+        this.setState({ loginUsername: event.target.value });
+    }
+
+    inputPasswordChangeHandler = (event) => {
+        this.setState({ loginPassword: event.target.value });
+    }
+
     loginClickHandler = () => {
-        this.state.usernameform === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
-        this.state.usernameform === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
-        if (this.state.usernameform !== "" && this.state.passwordform !== "") 
-        {
-            if (this.state.usernameform !== "upgrad" || this.state.passwordform !== "password") {
-                this.setState({ invalidCredentialsCombination: "dispBlock" });
-                sessionStorage.setItem('access_token', "");
-            }
-            else{
-                // this.setState({access_token: "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c"});
-                sessionStorage.setItem('access_token', "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c");
-                this.setState({accesToken: sessionStorage.getItem('access_token')});
-                // this.props.history.push('/home');
-                this.routeChangeToHome();
+        this.state.loginUsername === '' ? this.setState({ usernameRequired: true, incorrectCredentials: false }) : this.setState({ usernameRequired: false });
+        this.state.loginPassword === '' ? this.setState({ passwordRequired: true, incorrectCredentials: false }) : this.setState({ passwordRequired: false });
+
+        if (this.state.loginUsername && this.state.loginPassword) {
+            // use mock username and password for log in
+            let username = 'user1';
+            let password = 'pass1';
+            let accessToken = '14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c';
+            if (username === this.state.loginUsername && password === this.state.loginPassword) {
+                sessionStorage.setItem('access-token', accessToken);
+                this.props.history.push('/home');
+            } else {
+                this.setState({ incorrectCredentials: true })
             }
         }
-        else {
-            this.setState({ invalidCredentialsCombination: "dispNone" });
-        }
-    }
-    usernameChangedHandler = (event) => {
-        this.setState({ usernameform: event.target.value });
     }
 
-    passwordChangedHandler = (event) => {
-        this.setState({ passwordform: event.target.value });
-    }
-
-    
     render() {
+        const { classes } = this.props;
         return (
-            <div className="loginPage">
-                <div className="loginHeader">Image Viewer
-                    {/* <span className="loginSpan">Image Viewer</span> */}
-                </div>
-                <div className="loginForm">
-                    <Card className="loginCard">
-                        <CardContent className="loginCardContent">
-                            <br /><br />
-                            <Typography className="loginTypography" variant="h4" component="h2">
-                                LOGIN
-                                </Typography>
-                            <br />
-                            <FormControl className="formcontrol" required>
-                                <InputLabel htmlFor="usernameform">Username</InputLabel>
-                                <Input id="usernameform" type="text" usernameform={this.state.usernameform} onChange={this.usernameChangedHandler} />
-                                <FormHelperText className={this.state.usernameRequired} >
-                                    <span className="loginFormRed">required</span>
+            <div>
+
+                {/* header */}
+                <Header />
+
+                {/* login card */}
+                <Card className={classes.card}>
+                    <CardContent>
+
+                        {/* login heading*/}
+                        <Typography variant='h5'>
+                            LOGIN
+                        </Typography>
+
+                        {/* username */}
+                        <FormControl required className={classes.loginForm}>
+                            <InputLabel
+                                htmlFor='loginUsername'
+                                classes={{
+                                    root: classes.inputLabel,
+                                    focused: classes.inputFocused,
+                                }}
+                            >
+                                Username
+                            </InputLabel>
+                            <Input
+                                id='loginUsername'
+                                type='text'
+                                loginusername={this.state.loginUsername}
+                                classes={{
+                                    underline: classes.inputUnderline,
+                                }}
+                                onChange={this.inputUsernameChangeHandler}
+                            />
+                            {this.state.usernameRequired ?
+                                <FormHelperText error={true}>
+                                    <span className='red'>required</span>
+                                </FormHelperText>
+                                : ''
+                            }
+                        </FormControl>
+
+                        {/* password */}
+                        {/* form is used to overcome - [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) */}
+                        <form>
+                            <FormControl required className={classes.loginForm}>
+                                <InputLabel
+                                    htmlFor='loginPassword'
+                                    classes={{
+                                        root: classes.inputLabel,
+                                        focused: classes.inputFocused,
+                                    }}
+                                >
+                                    Password
+                            </InputLabel>
+                                <Input
+                                    autoComplete='off'
+                                    id='loginPassword'
+                                    type='password'
+                                    loginpassword={this.state.loginPassword}
+                                    classes={{
+                                        underline: classes.inputUnderline,
+                                    }}
+                                    onChange={this.inputPasswordChangeHandler}
+                                />
+                                {this.state.passwordRequired ?
+                                    <FormHelperText error={true}>
+                                        <span className='red'>required</span>
+                                    </FormHelperText>
+                                    : ''
+                                }
+                            </FormControl>
+                        </form>
+
+                        {/* incorrect credentials error */}
+                        {this.state.incorrectCredentials ?
+                            <FormControl>
+                                <FormHelperText error={true}>
+                                    <span className='red'>Incorrect username and/or password</span>
                                 </FormHelperText>
                             </FormControl>
-                            <br /><br />
-                            <FormControl className="formcontrol" required>
-                                <InputLabel htmlFor="passwordform">Password</InputLabel>
-                                <Input id="passwordform" type="text" passwordform={this.state.passwordform} onChange={this.passwordChangedHandler} />
-                                <FormHelperText className={this.state.passwordRequired}>
-                                    <span className="loginFormRed">required</span>
-                                </FormHelperText>
-                            </FormControl>
-                            <br /><br />
-                            <FormHelperText className={this.state.invalidCredentialsCombination} >
-                                <span className="loginFormRed">Incorrect username and/or password</span>
-                            </FormHelperText>
-                            <br />
-                            <Button className="loginFormButton" variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN
-                            </Button>
-                            <br /><br />
-                        </CardContent>
-                    </Card>
-                </div>
+                            : ''
+                        }
+                        <br /><br />
+
+                        {/* login button */}
+                        <Button
+                            variant='contained'
+                            color='primary'
+                            onClick={this.loginClickHandler}
+                        >
+                            LOGIN
+                        </Button>
+                    </CardContent>
+                </Card>
             </div>
         )
     }
 }
-export default Login;
+
+export default withStyles(styles)(Login);
