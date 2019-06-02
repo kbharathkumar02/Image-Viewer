@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Login.css';
-import LoginHeader from '../../common/LoginHeader';
 import Button from '@material-ui/core/Button';
 import 'typeface-roboto';
 import Card from '@material-ui/core/Card';
@@ -68,8 +67,8 @@ class Login extends Component {
     render() {
         return (
             <div className="loginPage">
-                <div>
-                    <LoginHeader />
+                <div className="loginHeader">Image Viewer
+                    {/* <span className="loginSpan">Image Viewer</span> */}
                 </div>
                 <div className="loginForm">
                     <Card className="loginCard">
