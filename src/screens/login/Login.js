@@ -26,13 +26,13 @@ class Login extends Component {
             invalidCredentialsCombination: "dispNone",
             username: "upgrad",
             password: "password",
-            access_token :'',
+            accesToken :'',
             
         };
-        this.routeChange = this.routeChange.bind(this);
+        this.routeChangeToHome = this.routeChangeToHome.bind(this);
     }
     
-    routeChange = () =>{
+    routeChangeToHome = () =>{
         let path = '/home';
         this.props.history.push(path);
       }
@@ -47,9 +47,9 @@ class Login extends Component {
             else{
                 // this.setState({access_token: "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c"});
                 sessionStorage.setItem('access_token', "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c");
-                this.setState({access_token: sessionStorage.getItem('access_token')});
+                this.setState({accesToken: sessionStorage.getItem('access_token')});
                 // this.props.history.push('/home');
-                this.routeChange();
+                this.routeChangeToHome();
             }
         }
         else {

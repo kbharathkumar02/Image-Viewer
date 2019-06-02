@@ -5,19 +5,19 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            "access_token": sessionStorage.getItem('access_token')
+            accessToken: sessionStorage.getItem('access_token')
         }
-        this.routeChange = this.routeChange.bind(this);
+        this.routeChangeToLogin = this.routeChangeToLogin.bind(this);
     }
-    routeChange = () =>{
+    routeChangeToLogin = () =>{
         let path = '/';
         this.props.history.push(path);
       }
 
     render() {
-        // console.log("this.state.access_token := "+ this.state.access_token);
-        if (this.state.access_token === null || this.state.access_token === "") {
-            this.routeChange();
+        // console.log("this.state.access_token := "+ this.state.accessToken);
+        if (this.state.accessToken === null || this.state.accessToken === "") {
+            this.routeChangeToLogin();
         }
         return (
             <div>This is home page</div>
