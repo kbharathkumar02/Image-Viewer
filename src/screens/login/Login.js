@@ -43,6 +43,7 @@ class Login extends Component {
         {
             if (this.state.usernameform !== "upgrad" || this.state.passwordform !== "password") {
                 this.setState({ invalidCredentialsCombination: "dispBlock" });
+                sessionStorage.setItem('access_token', "");
             }
             else{
                 // this.setState({access_token: "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c"});
