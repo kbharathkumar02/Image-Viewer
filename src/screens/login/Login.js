@@ -45,8 +45,9 @@ class Login extends Component {
                 this.setState({ invalidCredentialsCombination: "dispBlock" });
             }
             else{
-                this.setState({access_token: "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c"});
-                sessionStorage.setItem('access_token', this.state.access_token);
+                // this.setState({access_token: "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c"});
+                sessionStorage.setItem('access_token', "14201037960.d08e1df.000d280d097c4ab89330d6713cd1ae0c");
+                this.setState({access_token: sessionStorage.getItem('access_token')});
                 // this.props.history.push('/home');
                 this.routeChange();
             }

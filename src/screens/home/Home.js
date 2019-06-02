@@ -15,7 +15,7 @@ class Home extends Component {
       }
 
     render() {
-        console.log("this.state.access_token := "+ this.state.access_token);
+        // console.log("this.state.access_token := "+ this.state.access_token);
         if (this.state.access_token === null || this.state.access_token === "") {
             this.routeChange();
         }
